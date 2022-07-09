@@ -5,6 +5,7 @@ import gqlClient from '../../lib/gqlConfig'
 import NextImage from 'next/image'
 import Layout from '../../components/layout/Layout'
 import moment from 'moment'
+import Link from 'next/link'
 
 const SLUGS = gql`
   {
@@ -75,16 +76,18 @@ const Post: FC<PostProps> = ({ post }) => {
           {post.categories[0].name}
         </span>
         <span className="font-bold text-3xl">{post.title}</span>
-        <div>
-          {post.categories.map((category) => (
-            <span
-              key={category.name}
-              className="rounded-sm p-1 border border-amber-300 w-fit cursor-pointer uppercase font-semibold text-sm hover:scale-90 hover:shadow-lg transition"
-            >
-              {category.name}
-            </span>
-          ))}
-          <span className="text-right w-full">
+        <div className="flex justify-between items-end">
+          <div className="flex gap-2">
+            {post.categories.map((category) => (
+              <span
+                key={category.name}
+                className="rounded-sm block p-1 border border-amber-300 w-fit cursor-pointer uppercase font-semibold text-sm hover:scale-90 hover:shadow-lg transition"
+              >
+                {category.name}
+              </span>
+            ))}
+          </div>
+          <span className="text-sm text-gray-400">
             {moment(post.createdAt).fromNow()}
           </span>
         </div>
@@ -92,6 +95,22 @@ const Post: FC<PostProps> = ({ post }) => {
       <div className="relative w-full h-72">
         <NextImage src={post.photo.url} layout="fill" />
       </div>
+      <div className="flex flex-col items-center pt-4 gap-2">
+        <NextImage
+          src={post.blogUser.photo.url}
+          width={150}
+          height={150}
+          className="rounded-full object-cover"
+        />
+        <span className='text-lg font-semibold transition'>{post.blogUser.nick}</span>
+      </div>
+      <hr className="border-stone-600 opacity-40 my-4" />
+      <div dangerouslySetInnerHTML={{ __html: post.content.html }} />
+      <Link href="/">
+        <div className="rounded-md p-2 uppercase my-4 text-lg text-white cursor-pointer w-3/4 text-center m-auto bg-slate-500">
+          More from {post.categories[0].name}
+        </div>
+      </Link>
     </Layout>
   )
 }
