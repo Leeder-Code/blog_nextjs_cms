@@ -44,9 +44,18 @@ export async function getStaticProps() {
   }
 }
 
+const randomNumber = (limit: number) => {
+  return Math.floor(Math.random() * limit)
+}
+
 const Home: NextPage<PostGQLData> = ({ posts, categories }) => {
   return (
     <Layout categories={categories}>
+      <div className="bg-purple-400 rounded-md p-4">
+        <div className="uppercase font-bold mb-2 text-xl">Recommended</div>
+        <PostCard {...posts[randomNumber(posts.length)]} />
+      </div>
+      <div className="uppercase font-bold mb-2 text-xl">Latest</div>
       <section className="flex flex-col items-center justify-center m-auto gap-3">
         {posts.map((post) => (
           <PostCard key={post.id} {...post} />
