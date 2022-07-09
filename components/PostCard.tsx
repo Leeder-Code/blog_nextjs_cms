@@ -26,16 +26,16 @@ const PostCard: FC<PostData> = ({
         <div className="flex flex-col w-full px-2">
           <span className="uppercase font-semibold">{categories[0].name}</span>
           <Link href={`post/${slug}`}>
-            <span className="my-auto cursor-pointer font-bold underline-offset-2 hover:underline">
+            <span className="my-auto max-w-xs cursor-pointer font-bold underline-offset-2 hover:underline sm:text-lg md:text-xl">
               {title}
             </span>
           </Link>
           <div className="flex justify-between items-end">
-            <p className="text-gray-400 text-xs">
+            <p className="text-gray-400 text-xs md:text-sm">
               {moment(createdAt).fromNow()}
             </p>
             <div className="flex items-center gap-2 ">
-              <p className="text-gray-700 font-light font-serif text-sm">
+              <p className="text-gray-700 font-light font-serif text-sm md:text-base">
                 {blogUser.nick}
               </p>
               <div className="rounded-full overflow-hidden h-8 w-8 md:h-12 md:w-12 relative">
